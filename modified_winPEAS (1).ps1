@@ -1213,10 +1213,10 @@ Write-Host -ForegroundColor Blue "=========|| Ipconfig ALL"
 Start-Process ipconfig.exe -ArgumentList "/all" -Wait -NoNewWindow
 
 
-Write-Host ""
-if ($TimeStamp) { TimeElapsed }
-Write-Host -ForegroundColor Blue "=========|| DNS Cache"
-ipconfig /displaydns | Select-String "Record" | ForEach-Object { Write-Host $('{0}' -f $_) }
+# Write-Host ""
+# if ($TimeStamp) { TimeElapsed }
+# Write-Host -ForegroundColor Blue "=========|| DNS Cache"
+#ipconfig /displaydns | Select-String "Record" | ForEach-Object { Write-Host $('{0}' -f $_) }
  
 Write-Host ""
 if ($TimeStamp) { TimeElapsed }
@@ -1226,19 +1226,19 @@ Write-Host -ForegroundColor Blue "=========|| LISTENING PORTS"
 Start-Process NETSTAT.EXE -ArgumentList "-ano" -Wait -NoNewWindow
 
 
-Write-Host ""
-if ($TimeStamp) { TimeElapsed }
-Write-Host -ForegroundColor Blue "=========|| ARP Table"
+# Write-Host ""
+# if ($TimeStamp) { TimeElapsed }
+# Write-Host -ForegroundColor Blue "=========|| ARP Table"
 
 # Arp table info
-Start-Process arp -ArgumentList "-A" -Wait -NoNewWindow
+# Start-Process arp -ArgumentList "-A" -Wait -NoNewWindow
 
-Write-Host ""
-if ($TimeStamp) { TimeElapsed }
-Write-Host -ForegroundColor Blue "=========|| Routes"
+# Write-Host ""
+# if ($TimeStamp) { TimeElapsed }
+# Write-Host -ForegroundColor Blue "=========|| Routes"
 
 # Route info
-Start-Process route -ArgumentList "print" -Wait -NoNewWindow
+# Start-Process route -ArgumentList "print" -Wait -NoNewWindow
 
 Write-Host ""
 if ($TimeStamp) { TimeElapsed }
@@ -1277,15 +1277,15 @@ if ($TimeStamp) { TimeElapsed }
 Write-Host -ForegroundColor Blue "=========|| SMB SHARES"
 Write-Host "Will enumerate SMB Shares and Access if any are available" 
 
-Get-SmbShare | Get-SmbShareAccess | ForEach-Object {
-  $SMBShareObject = $_
+# Get-SmbShare | Get-SmbShareAccess | ForEach-Object {
+#  $SMBShareObject = $_
 # see line 70 for explanation of what this does
-  whoami.exe /groups /fo csv | select-object -skip 2 | ConvertFrom-Csv -Header 'group name' | Select-Object -ExpandProperty 'group name' | ForEach-Object {
-    if ($SMBShareObject.AccountName -like $_ -and ($SMBShareObject.AccessRight -like "Full" -or "Change") -and $SMBShareObject.AccessControlType -like "Allow" ) {
-      Write-Host -ForegroundColor red "$($SMBShareObject.AccountName) has $($SMBShareObject.AccessRight) to $($SMBShareObject.Name)"
-    }
-  }
-}
+# whoami.exe /groups /fo csv | select-object -skip 2 | ConvertFrom-Csv -Header 'group name' | Select-Object -ExpandProperty 'group name' | ForEach-Object {
+#    if ($SMBShareObject.AccountName -like $_ -and ($SMBShareObject.AccessRight -like "Full" -or "Change") -and $SMBShareObject.AccessControlType -like "Allow" ) {
+#      Write-Host -ForegroundColor red "$($SMBShareObject.AccountName) has $($SMBShareObject.AccessRight) to $($SMBShareObject.Name)"
+#    }
+# }
+#}
 
 
 ######################## USER INFO ########################
